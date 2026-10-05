@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>工作台 · 计费取证</title>
+  <link rel="stylesheet" href="/styles.css"/>
+</head>
+<body>
+  <div id="app" class="work">
+    <nav-bar page="work"></nav-bar>
+    <aside class="left">
+      <header class="left-head">
+        <div>
+          <h1>对话</h1>
+          <p class="sub">DeepSeek · 贴工单，SQL 在右侧</p>
+        </div>
+        <button type="button" class="ghost" @click="newChat">新对话</button>
+      </header>
+      <div class="thread" ref="threadEl">
+        <p v-if="!state.thread.length" class="empty">把工单贴在下面。开单后这里是对话。</p>
+        <div v-for="(item, i) in state.thread" :key="i" class="msg" :class="item.role">
+          <div class="who">{{ who(item.role) }}</div>
+          <div v-if="isMd(item)" class="bubble md" v-html="renderMd(item.text)"></div>
+          <div v-else class="bubble">{{ item.text }}</div>
+        </div>
+      </div>
+      <form class="composer" @submit.prevent="send">
+        <textarea
+          v-model="draft"
+          rows="3"
+          placeholder="贴工单，或从 PL/SQL 结果网格连表头复制（不要从脚本输出窗口复制）"
+          @keydown.enter.exact.prevent="send"
+        ></textarea>
+        <div class="composer-row">
+          <p class="hint">{{ statusLine || '贴回：结果网格点左上角选中含表头 → Ctrl+C。列之间应有分隔，不要是 Q1_YMQ1_ACC 连在一起。' }}</p>
+          <button type="button" class="ghost" :disabled="busy || !state.sql" @click="submitEmpty">结果为空</button>
+          <button type="submit" :disabled="busy">{{ busy ? '思考中…' : '发送' }}</button>
+        </div>
+      </form>
+    </aside>
+    <main class="right">
+      <section class="run" :class="{ explore: state.mode === 'explore' }">
+        <div class="run-head">
+          <div>
+            <div class="tid">要跑的 SQL</div>
+            <div class="meta">工单 {{ state.ticket_id || '—' }} · {{ processLabel }} · {{ modeLabel }}</div>
+          </div>
+          <div class="copy-wrap">
+            <button
+              type="button"
+              class="copy"
+              :class="{ fresh: copyPending, done: copyDone }"
+              :disabled="!state.sql"
+              @click="copySql"
+            >{{ copyLabel }}</button>
+            <span class="copy-hint">{{ copyHint }}</span>
+          </div>
+        </div>
+        <div class="slots">
+          <div class="slot-short">
+            <span class="lab">号码</span>
+            <span>{{ slotAcc }}</span>
+          </div>
+          <div class="slot-short">
+            <span class="lab">月份</span>
+            <span>{{ slotMonths }}</span>
+          </div>
+          <div class="slot-claim">
+            <span class="lab">主张</span>
+            <span>{{ slotClaim }}</span>
+          </div>
+        </div>
+        <p v-if="state.reminder" class="remind">{{ state.reminder }}</p>
+        <pre class="sql">{{ state.sql || '等待出包。锁定工单后这里会出现可复制的 SQL。' }}</pre>
+      </section>
+      <section v-if="action.title" class="next-box" :class="action.code">
+        <h2>现在做什么</h2>
+        <p class="next-title">{{ action.title }}</p>
+        <p class="next-detail">{{ action.detail }}</p>
+        <button
+          v-if="state.process === 'reviewed' && reviewPassed"
+          type="button"
+          class="copy"
+          :disabled="busy"
+          @click="confirmDraft"
+        >确认当前证据并允许归档</button>
+        <button
+          v-if="state.process === 'confirmed'"
+          type="button"
+          class="copy"
+          :disabled="busy"
+          @click="archiveDraft"
+        >归档当前工单</button>
+      </section>
+      <section v-if="review.status" class="review-box" :class="review.status">
+        <div class="review-head">
+          <h2>交付核验</h2>
+          <span class="review-status">{{ reviewStatusLabel }}</span>
+        </div>
+        <div class="review-checks">
+          <div v-for="check in (review.checks || [])" :key="check.name" class="review-check" :class="check.status">
+            <span class="review-mark">{{ check.status === 'passed' ? '✓' : '!' }}</span>
+            <div>
+              <strong>{{ reviewName(check.name) }}</strong>
+              <p>{{ check.detail }}</p>
+            </div>
+          </div>
+        </div>
+        <p class="review-summary">{{ review.summary }}</p>
+      </section>
+      <trail-map :trail="state.trail"></trail-map>
+      <evidence-charts :charts="state.charts"></evidence-charts>
+    </main>
+  </div>
+  <script type="module" src="/work.js"></script>
+</body>
+</html>

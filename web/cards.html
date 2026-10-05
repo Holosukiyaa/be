@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>卡片 · 计费取证</title>
+  <link rel="stylesheet" href="/styles.css"/>
+</head>
+<body>
+  <div id="app" class="page">
+    <nav-bar page="cards"></nav-bar>
+    <main class="page-body">
+      <h1>结构卡片 {{ rows.length }}</h1>
+      <input v-model="q" class="search" type="search" placeholder="筛表名、科目、碎片…"/>
+      <p v-if="!filtered.length" class="empty">没有卡片。</p>
+      <article v-for="row in filtered" :key="row.kind + row.name" class="kv">
+        <div class="k"><span class="kind">{{ row.kind }}</span> {{ row.name }}</div>
+        <div class="v">{{ row.body }}</div>
+      </article>
+    </main>
+  </div>
+  <script type="module" src="/cards.js"></script>
+</body>
+</html>

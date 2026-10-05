@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>工单 · 计费取证</title>
+  <link rel="stylesheet" href="/styles.css"/>
+</head>
+<body>
+  <div id="app" class="page">
+    <nav-bar page="history"></nav-bar>
+    <main class="page-body">
+      <h1>工单 {{ rows.length }}</h1>
+      <input v-model="q" class="search" type="search" placeholder="筛工单号、号码、香港、副卡、金额…"/>
+      <p v-if="!filtered.length" class="empty">还没有结案记录。</p>
+      <article v-for="row in filtered" :key="row.ticket_id" class="case">
+        <div class="case-top">
+          <div>
+            <div class="tid">{{ row.ticket_id }}</div>
+            <div class="meta">号码 {{ row.acc_num }}　账期 {{ row.months }}</div>
+          </div>
+          <div class="amt">{{ row.amounts || '—' }}</div>
+        </div>
+        <span v-if="row.gold" class="gold">金标准</span>
+        <span class="st">{{ row.status === 'abandoned' ? '已废弃' : '已结档' }}</span>
+        <dl>
+          <dt>主张</dt><dd>{{ row.claim }}</dd>
+          <dt>结论</dt>
+          <dd>
+            <div v-if="isMd(row.finding)" class="finding md" v-html="renderMd(row.finding)"></div>
+            <div v-else class="finding">{{ row.finding }}</div>
+          </dd>
+        </dl>
+        <div class="foot">{{ row.note }}　{{ row.closed }}</div>
+      </article>
+    </main>
+  </div>
+  <script type="module" src="/history.js"></script>
+</body>
+</html>

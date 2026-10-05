@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>闸门 · 计费取证</title>
+  <link rel="stylesheet" href="/styles.css"/>
+</head>
+<body>
+  <div id="app" class="page">
+    <nav-bar page="gates"></nav-bar>
+    <main class="page-body">
+      <h1>闸门</h1>
+      <p class="sub">五条策略是闸门，不是提示词作文。</p>
+      <article v-for="row in rows" :key="row.lane + row.seq" class="kv">
+        <div class="k">{{ row.lane }}-{{ row.seq }}　{{ row.name }}</div>
+        <div class="v">
+          {{ row.story }}<br/>
+          <span class="muted">做：{{ row.how }}</span><br/>
+          <span class="muted">不做：{{ row.not_that }}</span>
+        </div>
+      </article>
+    </main>
+  </div>
+  <script type="module" src="/gates.js"></script>
+</body>
+</html>

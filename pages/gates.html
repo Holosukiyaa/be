@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>闸门 · 计费取证（脱敏回放）</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <link rel="stylesheet" href="demo.css"/>
+</head>
+<body>
+  <div id="app" class="page">
+    <nav class="topnav">
+      <a class="brand" href="index.html">计费取证</a>
+      <a href="index.html">工作台</a>
+      <a href="history.html">工单</a>
+      <a class="on" href="gates.html">闸门</a>
+    </nav>
+    <div class="demo-banner">
+      <p>下面四道闸用在这三个脱敏案例上。页面输入都标明了模拟录入，号码已打码。</p>
+    </div>
+    <main class="page-body">
+      <h1>结案前要过的闸</h1>
+      <ol class="note-list">
+        <li>对象和账期必须出现在贴回结果里。</li>
+        <li>客户主张的金额必须出现在某一行上。工单号码整月为 0，不能写成没有这笔。</li>
+        <li>每个主张都要有对应证据。只盖住金额、没盖住短信时，整单停住。</li>
+        <li>结论不能写成计费无误。加总对上，只说明钱在这些行里。</li>
+        <li>核验通过之后还要人明确确认，才能归档。</li>
+      </ol>
+      <p>生产 SQL 由运维在自己的环境执行。这个页面不执行任何查询。</p>
+    </main>
+  </div>
+</body>
+</html>

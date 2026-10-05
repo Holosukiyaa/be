@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>工单 · 计费取证（脱敏回放）</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <link rel="stylesheet" href="demo.css"/>
+</head>
+<body>
+  <div id="app" class="page">
+    <nav class="topnav">
+      <a class="brand" href="index.html">计费取证</a>
+      <a href="index.html">工作台</a>
+      <a class="on" href="history.html">工单</a>
+      <a href="gates.html">闸门</a>
+    </nav>
+    <div class="demo-banner">
+      <p>三张都是真实投诉的业务结构。号码已打码，金额和套餐保留。输入内容是脱敏后的模拟录入。</p>
+    </div>
+    <main class="page-body">
+      <h1>工单 3</h1>
+      <article class="case">
+        <div class="case-top">
+          <div>
+            <div class="tid">案例一</div>
+            <div class="meta">主号 6687****　账期 202609</div>
+          </div>
+          <div class="amt">15.30 / 22.50</div>
+        </div>
+        <span class="st">待收窄结论</span>
+        <dl>
+          <dt>主张</dt>
+          <dd>人在黑龙江，称未出国。短信写国际漫游数据已达 15.30 澳门元。</dd>
+          <dt>结论</dt>
+          <dd class="finding">主卡俄罗斯方向漫游数据 6 笔合计 22.50。15.30 是 9 月 15 日第一笔。同机 27 秒切到国内网号。两地通不含该方向。切网跟主卡，不是用超。</dd>
+        </dl>
+        <div class="foot">脱敏回放　不能拿短信金额结案</div>
+      </article>
+      <article class="case">
+        <div class="case-top">
+          <div>
+            <div class="tid">案例二</div>
+            <div class="meta">主号 6663****　账期 202608</div>
+          </div>
+          <div class="amt">5.20</div>
+        </div>
+        <span class="st">待人工确认</span>
+        <dl>
+          <dt>主张</dt>
+          <dd>主号未赴港，人多在新口岸。账单有香港数据漫游 5.20 澳门元。</dd>
+          <dt>结论</dt>
+          <dd class="finding">主号只有澳门和内地，费用 0。共享池副号 6887**** 香港上网 9 笔、410.75MB，等于 5.20。只查主号会错结成没有这笔。</dd>
+        </dl>
+        <div class="foot">脱敏回放　必须见到副号</div>
+      </article>
+      <article class="case">
+        <div class="case-top">
+          <div>
+            <div class="tid">案例三</div>
+            <div class="meta">号码 6630****　账期 202607、202608</div>
+          </div>
+          <div class="amt">53.75 / 50.00</div>
+        </div>
+        <span class="st">待人工确认</span>
+        <dl>
+          <dt>主张</dt>
+          <dd>全澳通语音 58 元，称数据已取消。7 月另收 53.75，8 月另收 50.00。</dd>
+          <dt>结论</dt>
+          <dd class="finding">没有副号。7 月澳门无线上网 527.11MB 等于 53.75。8 月澳门无线上网 49.75，加国内卡流量 0.25，等于 50.00。语音套餐不含流量。减免是客情，不是错账。</dd>
+        </dl>
+        <div class="foot">脱敏回放　加平了也不写计费无误</div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

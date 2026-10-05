@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>工作台 · 计费取证（脱敏回放）</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <link rel="stylesheet" href="demo.css"/>
+</head>
+<body>
+  <div id="app" class="work">
+    <nav class="topnav">
+      <a class="brand" href="index.html">计费取证</a>
+      <a class="on" href="index.html">工作台</a>
+      <a href="history.html">工单</a>
+      <a href="gates.html">闸门</a>
+    </nav>
+    <div class="demo-banner">
+      <p>三个案例按真实计费投诉的业务来写。号码已打码，金额、套餐和争议点保留。输入框里是脱敏后的模拟录入，此页不连接生产库。</p>
+      <div class="scene-switch">
+        <button type="button" id="btn-sms" class="on">案例一 · 短信不是整月</button>
+        <button type="button" id="btn-pool">案例二 · 钱在副卡</button>
+        <button type="button" id="btn-voice">案例三 · 语音套餐仍有流量费</button>
+      </div>
+    </div>
+
+    <aside class="left">
+      <header class="left-head">
+        <div>
+          <h1>对话</h1>
+          <p class="sub">回放 · 演示单 DEMO-01</p>
+        </div>
+      </header>
+      <div class="thread" id="thread"></div>
+      <form class="composer">
+        <label class="sim-label" for="sim-input">输入（模拟数据）</label>
+        <textarea id="sim-input" rows="4" readonly></textarea>
+        <div class="composer-row">
+          <p class="hint">框内是模拟工单和模拟贴回，不是真实客户数据。此页不能提交，也不会连接生产库。</p>
+          <button type="button" class="ghost" disabled>结果为空</button>
+          <button type="submit" disabled>发送</button>
+        </div>
+      </form>
+    </aside>
+
+    <main class="right">
+      <section class="run" id="run">
+        <div class="run-head">
+          <div>
+            <div class="tid">要跑的 SQL</div>
+            <div class="meta" id="meta">工单 DEMO-01 · 待补证 · 复用</div>
+          </div>
+        </div>
+        <div class="slots">
+          <div class="slot-short"><span class="lab">号码</span><span>10000001</span></div>
+          <div class="slot-short"><span class="lab">月份</span><span>202601</span></div>
+          <div class="slot-claim"><span class="lab">主张</span><span>人在本地，账单出现异地数据 8.00</span></div>
+        </div>
+        <p class="remind" id="remind">工单号码只是入口。主张金额没有出现在某一行之前，不能结案。</p>
+        <pre class="sql" id="sql"></pre>
+      </section>
+      <section class="next-box" id="next"></section>
+      <section class="review-box" id="review"></section>
+      <section class="path" id="path"></section>
+      <section class="compare" id="compare"></section>
+    </main>
+  </div>
+  <script src="demo.js"></script>
+</body>
+</html>
